@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/08 19:26:10 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/08 19:40:20 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 int		main(int argc, char *argv[], char *env[])
 {
+	if (argc || argv || env)
+	{
+	}
 	return (0);
 }
