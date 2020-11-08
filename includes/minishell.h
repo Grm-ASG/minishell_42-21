@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/08 20:09:48 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/08 22:08:40 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@
 /*
 ** "readdir" has no include lib, need to read "man 2 readdir"
 */
+
+# include "libft.h"
 
 #endif
