@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/09 10:27:01 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/09 11:19:04 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ all: $(NAME)
 -include $(DEP)
 
 $(NAME): $(LFT) $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $(OBJ) -L$(DIR_LIBFT) -lft
+	$(CC) $(CFLAGS) $(OBJ) -L$(DIR_LIBFT) -lft -o $@
 
 clean:
 	$(RM) $(OBJ) $(DEP)
@@ -64,7 +64,7 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-re: fclean all
+re: fclean_all all
 
 clean_libft:
 	$(MAKE) clean -C $(DIR_LIBFT)
