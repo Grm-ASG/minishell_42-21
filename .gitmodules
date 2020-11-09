@@ -1,3 +1,6 @@
 [submodule "libft"]
 	path = libft
 	url = https://github.com/Grm-ASG/libft_42-21.git
+[submodule "get_next_line"]
+	path = get_next_line
+	url = https://github.com/Grm-ASG/get_next_line_42-21.git
