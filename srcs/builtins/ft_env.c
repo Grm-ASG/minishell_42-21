@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 10:16:40 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/09 20:07:54 by imedgar          ###   ########.fr       */
+/*   Created: 2020/11/09 20:04:47 by imedgar           #+#    #+#             */
+/*   Updated: 2020/11/09 20:43:22 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**			Our "pwd" takes 1 argument:
-**			1) int fd = filedescriptor to write
-**
-**			TODO check return value NULL, is it malloc failed?
+**		TODO maybe rewrite with structure?
 */
 
-void		ft_pwd(int fd)
+void	ft_env(int fd, char *envp[])
 {
-	const char	*path_name = getcwd(NULL, 0);
-	
-	if (!path_name)
+	int i;
+
+	i = -1;
+	while (envp[++i])
 	{
-		/*
-		**	Check EACCES errno flag! (man 3 getcwd)
-		*/
-		ft_error(ALLOCATION_FAILED);
+		ft_putstr_fd(envp[i], fd);
+		ft_putstr_fd("\n", 1);
 	}
-	ft_putstr_fd((char *)path_name, fd);
-	ft_putstr_fd("\n", fd);
-	free((char *)path_name);
 }

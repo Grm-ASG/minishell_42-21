@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/09 10:41:57 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/09 20:48:17 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@
 */
 
 # include "libft.h"
+# include "get_next_line.h"
 
 /*
 ** Define error codes
@@ -75,10 +76,20 @@
 # define ALLOCATION_FAILED 1
 
 /*
+** Main structures
+*/
+
+typedef struct	s_cd
+{
+	char	*last_path; //TODO command "cd -"
+}				t_cd;
+
+/*
 ** Function declaration
 */
 void		ft_error(int err);
 void		ft_echo(char *str, int fd, char fl_n);
 void		ft_pwd(int fd);
+void		ft_env(int fd, char *envp[]);
 
 #endif

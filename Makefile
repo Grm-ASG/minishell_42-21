@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/09 11:19:04 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/09 20:45:57 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,21 +20,30 @@ SRC_ERR			=	ft_error.c
 
 SRC_BLTIN		=	ft_echo.c	\
 					ft_cd.c		\
-					ft_pwd.c
+					ft_pwd.c	\
+					ft_env.c
+
+SRC_GNL			=	get_next_line.c		\
+					get_next_line_utils.c
 
 #			Header files
-INCLUDES		=	minishell.h
+INCLUDES		=	minishell.h	\
+				=	libft.h		\
+				=	get_next_line.h
 
 #			Object and dependence files
 OBJ				=	$(addprefix $(DIR_SRC), $(SRC:.c=.o))		\
+					$(addprefix $(DIR_GNL), $(SRC_GNL:.c=.o))	\
 					$(addprefix $(DIR_ERROR), $(SRC_ERR:.c=.o))	\
 					$(addprefix $(DIR_BLTIN), $(SRC_BLTIN:.c=.o))
+
 DEP				=	$(OBJ:.o=.d)
 
 #			Main directories
 DIR_SRC			=	./srcs/
 DIR_INC			=	./includes/
 DIR_LIBFT		=	./libft/
+DIR_GNL			=	./get_next_line/
 DIR_ERROR		=	$(addprefix $(DIR_SRC), errors/)
 DIR_BLTIN		=	$(addprefix $(DIR_SRC), builtins/)
 
