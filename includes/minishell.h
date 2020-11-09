@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/09 21:41:21 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/09 22:54:40 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@
 ** "readdir" has no include lib, need to read "man 2 readdir"
 */
 
+# include <X11/keysymdef.h>
 # include "libft.h"
 # include "get_next_line.h"
 
@@ -75,6 +76,7 @@
 */
 # define ALLOCATION_FAILED	1
 # define GNL_ERR_RETURN		2
+# define FAILED_READ		3
 
 /*
 ** Main structures
