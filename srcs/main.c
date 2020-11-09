@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/09 09:25:51 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/09 10:41:47 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int		main(int argc, char *argv[], char *envp[])
 	if (argc || argv || envp)
 	{
 	}
+	ft_pwd(1);
 	while (1)
 	{
 		ft_type_promt(envp);

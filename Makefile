@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/09 09:50:02 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/09 10:27:01 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ SRC				=	main.c
 
 SRC_ERR			=	ft_error.c
 
-SRC_BLTIN		=	ft_echo.c
+SRC_BLTIN		=	ft_echo.c	\
+					ft_cd.c		\
+					ft_pwd.c
 
 #			Header files
 INCLUDES		=	minishell.h
