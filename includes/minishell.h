@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/09 09:19:01 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/09 09:50:32 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@
 ** Function declaration
 */
 void		ft_error(int err);
+void		ft_echo(char *str, int fd, char fl_n);
 
 #endif

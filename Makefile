@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/09 09:25:18 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/09 09:50:02 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,20 +18,23 @@ SRC				=	main.c
 
 SRC_ERR			=	ft_error.c
 
+SRC_BLTIN		=	ft_echo.c
+
 #			Header files
 INCLUDES		=	minishell.h
 
 #			Object and dependence files
-OBJ				=	$(addprefix $(DIR_SRC), $(SRC:.c=.o))	\
-					$(addprefix $(DIR_ERROR), $(SRC_ERR:.c=.o))
-DEP				=	$(addprefix $(DIR_SRC), $(SRC:.c=.d))	\
-					$(addprefix $(DIR_ERROR), $(SRC_ERR:.c=.d))
+OBJ				=	$(addprefix $(DIR_SRC), $(SRC:.c=.o))		\
+					$(addprefix $(DIR_ERROR), $(SRC_ERR:.c=.o))	\
+					$(addprefix $(DIR_BLTIN), $(SRC_BLTIN:.c=.o))
+DEP				=	$(OBJ:.o=.d)
 
 #			Main directories
 DIR_SRC			=	./srcs/
 DIR_INC			=	./includes/
 DIR_LIBFT		=	./libft/
 DIR_ERROR		=	$(addprefix $(DIR_SRC), errors/)
+DIR_BLTIN		=	$(addprefix $(DIR_SRC), builtins/)
 
 #			Main libraries
 LFT				=	$(DIR_LIBFT)libft.a
