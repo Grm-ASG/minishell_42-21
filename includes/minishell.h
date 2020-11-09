@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/08 22:08:40 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/09 09:19:01 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,15 @@
 */
 
 # include "libft.h"
+
+/*
+** Define error codes
+*/
+# define ALLOCATION_FAILED 1
+
+/*
+** Function declaration
+*/
+void		ft_error(int err);
 
 #endif

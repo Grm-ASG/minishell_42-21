@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/08 22:54:14 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/09 09:25:18 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,22 @@ NAME			=	minishell
 #			Source files
 SRC				=	main.c
 
+SRC_ERR			=	ft_error.c
+
 #			Header files
 INCLUDES		=	minishell.h
 
 #			Object and dependence files
-OBJ				=	$(addprefix $(DIR_SRC), $(SRC:.c=.o))
-DEP				=	$(addprefix $(DIR_SRC), $(SRC:.c=.d))
+OBJ				=	$(addprefix $(DIR_SRC), $(SRC:.c=.o))	\
+					$(addprefix $(DIR_ERROR), $(SRC_ERR:.c=.o))
+DEP				=	$(addprefix $(DIR_SRC), $(SRC:.c=.d))	\
+					$(addprefix $(DIR_ERROR), $(SRC_ERR:.c=.d))
 
 #			Main directories
 DIR_SRC			=	./srcs/
 DIR_INC			=	./includes/
 DIR_LIBFT		=	./libft/
+DIR_ERROR		=	$(addprefix $(DIR_SRC), errors/)
 
 #			Main libraries
 LFT				=	$(DIR_LIBFT)libft.a
@@ -65,12 +70,12 @@ fclean_libft:
 make_libft:
 	$(MAKE) -C $(DIR_LIBFT)
 
+$(LFT): make_libft
+
 norm:
 	$(NORM) $(DIR_LIBFT)*.[ch]
 	$(NORM) $(addprefix $(DIR_SRC), $(SRC)) \
 	$(addprefix $(DIR_INC), $(INCLUDES))
-
-$(LFT): make_libft
 
 re_all: fclean fclean_libft all
 
