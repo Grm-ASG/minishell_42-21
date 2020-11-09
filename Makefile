@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/09 20:45:57 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/09 21:46:18 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ SRC_GNL			=	get_next_line.c		\
 					get_next_line_utils.c
 
 #			Header files
-INCLUDES		=	minishell.h	\
-				=	libft.h		\
-				=	get_next_line.h
+INCLUDES		=	minishell.h\
+					libft.h\
+					get_next_line.h
 
 #			Object and dependence files
 OBJ				=	$(addprefix $(DIR_SRC), $(SRC:.c=.o))		\
@@ -87,9 +87,9 @@ make_libft:
 $(LFT): make_libft
 
 norm:
-	$(NORM) $(DIR_LIBFT)*.[ch]
-	$(NORM) $(addprefix $(DIR_SRC), $(SRC)) \
-	$(addprefix $(DIR_INC), $(INCLUDES))
+	$(NORM) $(DIR_LIBFT)*.c
+	$(NORM) $(OBJ:.o=.c)
+	$(NORM) $(addprefix $(DIR_INC), $(INCLUDES))
 
 re_all: fclean fclean_libft all
 
@@ -97,6 +97,13 @@ clean_all: clean clean_libft
 
 fclean_all: fclean fclean_libft
 
+valgrind: all
+	valgrind --leak-check=full	\
+	--show-leak-kinds=all --track-origins=yes \
+	--verbose ./$(NAME)
+
 .PHONY: all norm make_libft re re_all		\
 		fclean_all clean_all fclean clean 	\
 		fclean_libft clean_libft
+
+.SILENT: norm

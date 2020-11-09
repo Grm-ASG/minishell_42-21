@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/09 20:08:15 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/09 21:46:42 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,45 @@ void	ft_type_promt(char *envp[])
 	free(user);
 }
 
-void	ft_read_command(void)
+void	ft_read_command(t_shell *s_shell)
 {
-	char	buf[2];
 	int		ret;
 
-	while (1)
+	ret = get_next_line(0, &s_shell->cmd_line);
+	if (ret < 0)
+		ft_error(GNL_ERR_RETURN);
+	s_shell->fd = 1;
+}
+
+void	ft_execute_command(t_shell *s_shell)
+{
+	char *const	cmd = s_shell->cmd_line;
+	int const	fd = s_shell->fd;
+
+	if (ft_strnstr("pwd", cmd, 3))
+		ft_pwd(fd);
+	else
 	{
-		if ((ret = read(0, buf, 1)) < 0)
-			break ;
-		buf[1] = '\0';
-		if (buf[0] == 10)
-			break ;
-		ft_putstr_fd(buf, 1);
+		ft_putstr_fd(cmd, fd);
+		ft_putstr_fd("\n", fd);
 	}
 }
 
 int		main(int argc, char *argv[], char *envp[])
 {
-	if (argc || argv || envp)
-	{
-		ft_pwd(1);
-		ft_env(1, envp);
-	}
+	t_shell		s_shell;
+
+	(void)argc;
+	(void)argv;
+	(void)envp;
+	ft_bzero(&s_shell, sizeof(t_shell));
 	while (1)
 	{
+		free(s_shell.cmd_line);
+		ft_bzero(&s_shell, sizeof(t_shell));
 		ft_type_promt(envp);
-		ft_read_command();
-		ft_putstr_fd("\n", 1);
+		ft_read_command(&s_shell);
+		ft_execute_command(&s_shell);
 	}
 	return (0);
 }

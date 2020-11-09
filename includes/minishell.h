@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/09 20:48:17 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/09 21:41:21 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@
 /*
 ** Define error codes
 */
-# define ALLOCATION_FAILED 1
+# define ALLOCATION_FAILED	1
+# define GNL_ERR_RETURN		2
 
 /*
 ** Main structures
@@ -81,15 +82,21 @@
 
 typedef struct	s_cd
 {
-	char	*last_path; //TODO command "cd -"
+	char		*last_path; //TODO command "cd -"
 }				t_cd;
+
+typedef struct	s_shell
+{
+	int			fd;
+	char		*cmd_line;
+}				t_shell;
 
 /*
 ** Function declaration
 */
-void		ft_error(int err);
-void		ft_echo(char *str, int fd, char fl_n);
-void		ft_pwd(int fd);
-void		ft_env(int fd, char *envp[]);
+void			ft_error(int err);
+void			ft_echo(char *str, int fd, char fl_n);
+void			ft_pwd(int fd);
+void			ft_env(int fd, char *envp[]);
 
 #endif
