@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 13:32:13 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:36:34 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static void	ft_type_promt(char *envp[])
 	free(user);
 }
 
-static void		ft_pre_req(int ac, char *gv[], t_shell *s_shell)
+static void	ft_pre_req(int ac, char *gv[], t_shell *s_shell)
 {
 	(void)ac;
 	(void)gv;
 	ft_bzero(s_shell, sizeof(t_shell));
 }
 
-int		main(int argc, char *argv[], char *envp[])
+int			main(int argc, char *argv[], char *envp[])
 {
 	t_shell		s_shell;
 
