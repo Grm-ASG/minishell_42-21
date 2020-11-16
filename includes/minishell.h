@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 15:47:29 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 16:15:41 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,19 @@
 # define FAILED_READ		3
 
 /*
+** Color defenition
+*/
+# define DEFLT	"\033[0m"
+# define BLACK	"\033[30m"
+# define RED	"\033[31m"
+# define GREEN	"\033[32m"
+# define YELLOW	"\033[33m"
+# define BLUE	"\033[34m"
+# define PURPLE	"\033[35m"
+# define CYAN	"\033[36m"
+# define WHITE	"\033[37m"
+
+/*
 ** Main structures
 */
 
@@ -92,6 +105,7 @@ typedef struct	s_shell
 {
 	int			fd;
 	char		*cmd_line;
+	char		**argv;
 }				t_shell;
 
 /*

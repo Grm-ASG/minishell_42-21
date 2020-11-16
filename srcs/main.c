@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 15:36:34 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 16:18:31 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,25 @@
 
 static void	ft_type_promt(char *envp[])
 {
-	char	*user;
+	char	*str_value;
 
-	user = ft_get_env_value(envp, "USERNAME");
-	if (!user)
-		user = ft_strdup("user");
-	if (!user)
+	str_value = ft_get_env_value(envp, "USERNAME");
+	if (!str_value)
+		str_value = ft_strdup("user");
+	if (!str_value)
 		ft_error(ALLOCATION_FAILED);
-	ft_putstr_fd(user, 1);
-	ft_putstr_fd("@MyOwnShell$ ", 1);
-	free(user);
+	ft_putstr_fd(GREEN, 1);
+	ft_putstr_fd(str_value, 1);
+	ft_putstr_fd("@MyOwnShell", 1);
+	ft_putstr_fd(DEFLT, 1);
+	ft_putstr_fd(":", 1);
+	free(str_value);
+	ft_putstr_fd(BLUE, 1);
+	str_value = ft_get_env_value(envp, "PWD");
+	ft_putstr_fd(str_value, 1);
+	ft_putstr_fd(DEFLT, 1);
+	free(str_value);
+	ft_putstr_fd("$ ", 1);
 }
 
 static void	ft_pre_req(int ac, char *gv[], t_shell *s_shell)
