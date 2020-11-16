@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/09 21:46:18 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/16 13:41:22 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,19 +23,28 @@ SRC_BLTIN		=	ft_echo.c	\
 					ft_pwd.c	\
 					ft_env.c
 
-SRC_GNL			=	get_next_line.c		\
+SRC_GNL			=	get_next_line.c	\
 					get_next_line_utils.c
 
+SRC_PARCER		=	ft_read_command.c
+
+SRC_EXECUTE		=	ft_execute.c
+
+SRC_UTILS		=	ft_env_get.c
+
 #			Header files
-INCLUDES		=	minishell.h\
-					libft.h\
+INCLUDES		=	minishell.h	\
+					libft.h		\
 					get_next_line.h
 
 #			Object and dependence files
-OBJ				=	$(addprefix $(DIR_SRC), $(SRC:.c=.o))		\
-					$(addprefix $(DIR_GNL), $(SRC_GNL:.c=.o))	\
-					$(addprefix $(DIR_ERROR), $(SRC_ERR:.c=.o))	\
-					$(addprefix $(DIR_BLTIN), $(SRC_BLTIN:.c=.o))
+OBJ				=	$(addprefix $(DIR_SRC), $(SRC:.c=.o))				\
+					$(addprefix $(DIR_GNL), $(SRC_GNL:.c=.o))			\
+					$(addprefix $(DIR_ERROR), $(SRC_ERR:.c=.o))			\
+					$(addprefix $(DIR_BLTIN), $(SRC_BLTIN:.c=.o))		\
+					$(addprefix $(DIR_PARCER), $(SRC_PARCER:.c=.o))		\
+					$(addprefix $(DIR_EXECUTE), $(SRC_EXECUTE:.c=.o))	\
+					$(addprefix $(DIR_UTILS), $(SRC_UTILS:.c=.o))
 
 DEP				=	$(OBJ:.o=.d)
 
@@ -46,6 +55,9 @@ DIR_LIBFT		=	./libft/
 DIR_GNL			=	./get_next_line/
 DIR_ERROR		=	$(addprefix $(DIR_SRC), errors/)
 DIR_BLTIN		=	$(addprefix $(DIR_SRC), builtins/)
+DIR_PARCER		=	$(addprefix $(DIR_SRC), parcer/)
+DIR_EXECUTE		=	$(addprefix $(DIR_SRC), executer/)
+DIR_UTILS		=	$(addprefix $(DIR_SRC), utils/)
 
 #			Main libraries
 LFT				=	$(DIR_LIBFT)libft.a

@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/09 22:54:40 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 13:23:32 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,8 @@ void			ft_error(int err);
 void			ft_echo(char *str, int fd, char fl_n);
 void			ft_pwd(int fd);
 void			ft_env(int fd, char *envp[]);
+void			ft_read_command(t_shell *s_shell);
+char			*ft_get_env_value(char *envp[], char *var);
+void			ft_execute_command(t_shell *s_shell);
 
 #endif
