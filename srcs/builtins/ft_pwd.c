@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:16:40 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/09 21:40:58 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 19:57:27 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void		ft_pwd(int fd)
 	const char	*path_name = getcwd(NULL, 0);
 
 	if (!path_name)
-	{
 		ft_error(ALLOCATION_FAILED);
-	}
 	ft_putstr_fd((char *)path_name, fd);
 	ft_putstr_fd("\n", fd);
 	free((char *)path_name);

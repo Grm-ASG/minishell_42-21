@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 18:26:13 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 19:01:39 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@
 
 typedef struct	s_cd
 {
-	char		*last_path; //TODO command "cd -"
 	char		*new_dir;
 }				t_cd;
 

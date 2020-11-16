@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 17:31:50 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 20:03:20 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ static void	ft_type_promt(char *envp[])
 {
 	const int	fd = 1;
 	char		*str_value;
+	int			len_home;
+	char		*find;
+	const char	*home = ft_get_env_value(envp, "HOME");
 
 	str_value = ft_get_env_value(envp, "USERNAME");
 	if (!str_value)
@@ -30,6 +33,15 @@ static void	ft_type_promt(char *envp[])
 	free(str_value);
 	ft_putstr_fd(BLUE, fd);
 	str_value = ft_get_env_value(envp, "PWD");
+	if (home)
+	{
+		find = ft_strnstr(str_value, home, (len_home = ft_strlen(home)));
+		if (find)
+		{
+			str_value[0] = '~';
+			ft_memmove(&str_value[1], &str_value[len_home], ft_strlen(str_value) - len_home + 1);
+		}
+	}
 	ft_putstr_fd(str_value, fd);
 	ft_putstr_fd(DEFLT, fd);
 	free(str_value);
