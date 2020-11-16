@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 16:15:41 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 16:47:56 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct	s_cd
 
 typedef struct	s_shell
 {
+	char		**envp;
 	int			fd;
 	char		*cmd_line;
 	char		**argv;
@@ -118,6 +119,6 @@ void			ft_env(int fd, char *envp[]);
 void			ft_read_command(t_shell *s_shell);
 char			*ft_get_env_value(char *envp[], char *var);
 void			ft_execute_command(t_shell *s_shell);
-void			ft_cd(char *argv[]);
+void			ft_cd(char *argv[], char *envp[]);
 
 #endif

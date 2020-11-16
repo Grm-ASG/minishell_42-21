@@ -6,23 +6,35 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:15:51 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 15:41:41 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 16:59:34 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		ft_cd(char *argv[])
+void		ft_cd(char *argv[], char *envp[])
 {
 	static t_cd		s_cd;
 	const char		fl_last_path = (argv[1][0] == '-' && !argv[1][1]);
 	const char		*work_dir = getcwd(NULL, 0);
 	int				ret;
+	char			*home_dir;
 
 	if (!work_dir)
 		ft_error(ALLOCATION_FAILED);
 	if (!argv[1])
-		ret = chdir("~");
+	{
+		home_dir = ft_get_env_value(envp, "HOME");
+		if (!home_dir)
+		{
+			ft_putstr_fd(RED, 2);
+			ft_putstr_fd("$HOME env not set", 2);
+			ft_putstr_fd(DEFLT, 2);
+			free((void *)work_dir);
+			return ;
+		}
+		ret = chdir(home_dir);
+	}
 	if (argv[2])
 		ft_putendl_fd("-csh: cd: too many arguments", 2);
 	else if (fl_last_path)
