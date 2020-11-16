@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:15:51 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 21:29:59 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 21:49:30 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,4 @@ void		ft_cd(t_shell *s_shell)
 		ft_change_env(s_shell->envp, "OLDPWD", (char *)init_dir);
 	}
 	ft_free_all(2, &init_dir, &new_dir);
-	return ;
 }

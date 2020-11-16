@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 13:21:25 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 21:03:54 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 21:53:19 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	ft_execute_command(t_shell *s_shell)
 
 	if (cmd[0] == '\0')
 		return ;
-	s_shell->argv = ft_split(s_shell->cmd_line, ' ');
-	if (!s_shell->argv)
+	if (!(s_shell->argv = ft_split(s_shell->cmd_line, ' ')))
 		ft_error(ALLOCATION_FAILED);
 	if (ft_strnstr(cmd, "pwd", 3))
 		ft_pwd(fd);
@@ -34,8 +33,8 @@ void	ft_execute_command(t_shell *s_shell)
 	}
 	i = -1;
 	while (s_shell->argv[++i])
-		free(s_shell->argv[i]);
-	free(s_shell->argv[i]);
-	free(s_shell->cmd_line);
+		ft_free_all(1, &s_shell->argv[i]);
+	ft_free_all(1, &s_shell->argv[i]);
+	ft_free_all(1, &s_shell->cmd_line);
 	ft_bzero(&s_shell->fd, sizeof(t_shell) - 8);
 }
