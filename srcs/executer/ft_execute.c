@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 13:21:25 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 20:38:03 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 21:03:54 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_execute_command(t_shell *s_shell)
 		ft_error(ALLOCATION_FAILED);
 	if (ft_strnstr(cmd, "pwd", 3))
 		ft_pwd(fd);
-	else if (ft_strnstr(cmd, "cd", 2))
+	else if (!ft_strcmp(s_shell->argv[0], "cd"))
 		ft_cd(s_shell);
 	else
 	{
