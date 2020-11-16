@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:15:51 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 20:58:46 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 21:29:59 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static void	ft_go_home(t_shell *s_shell, const char *init_dir)
 		ft_putstr_fd(RED, 2);
 		ft_putstr_fd("-csh: cd: HOME not set", 2);
 		ft_putstr_fd(DEFLT, 2);
-		free((void *)init_dir);
+		ft_free_all(1, &init_dir);
 		return ;
 	}
 	ret = chdir(home_dir);
 	if (!(ft_strcmp(home_dir, init_dir)))
 		ft_change_env(s_shell->envp, "PWD", home_dir);
 	ft_change_env(s_shell->envp, "OLDPWD", (char *)init_dir);
-	free(home_dir);
+	ft_free_all(1, &home_dir);
 	if (ret == -1)
 	{
 		ft_putendl_fd("-csh: cd: No such file or directory", 2);
@@ -77,7 +77,7 @@ static void	ft_go_arg(t_shell *s_shell, const char *init_dir)
 		ft_putstr_fd(tmp_argv ? tmp_argv : s_shell->argv[1], 2);
 		ft_putendl_fd(": No such file or directory", 2);
 	}
-	ft_free_all(3, last_path, tmp_argv, home);
+	ft_free_all(3, &last_path, &tmp_argv, &home);
 }
 
 void		ft_cd(t_shell *s_shell)
@@ -99,6 +99,6 @@ void		ft_cd(t_shell *s_shell)
 		ft_change_env(s_shell->envp, "PWD", new_dir);
 		ft_change_env(s_shell->envp, "OLDPWD", (char *)init_dir);
 	}
-	ft_free_all(2, (void *)init_dir, (void *)new_dir);
+	ft_free_all(2, &init_dir, &new_dir);
 	return ;
 }

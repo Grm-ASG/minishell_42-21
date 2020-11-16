@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 13:20:30 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 20:19:43 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 21:43:10 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	ft_change_env(char *envp[], char *var, char *value)
 	while (envp[++i])
 		if (ft_strnstr(envp[i], env_var, len))
 		{
-			free(envp[i]);
+			ft_free_all(1, &envp[i]);
 			if (!(envp[i] = ft_strjoin(env_var, value)))
 				ft_error(ALLOCATION_FAILED);
-			free((char	*)env_var);
+			ft_free_all(1, &env_var);
 			break ;
 		}
 }
@@ -50,6 +50,6 @@ char	*ft_get_env_value(char *envp[], char *var)
 				ft_error(ALLOCATION_FAILED);
 			break ;
 		}
-	free((void *)env_var);
+	ft_free_all(1, &env_var);
 	return (ret);
 }
