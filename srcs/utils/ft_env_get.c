@@ -6,11 +6,31 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 13:20:30 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 13:20:44 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 18:16:04 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_change_env(char *envp[], char *var, char *value)
+{
+	const int	len = ft_strlen(var) + 1;
+	const char	*env_var = ft_strjoin(var, "=");
+	int			i;
+
+	if (!env_var)
+		ft_error(ALLOCATION_FAILED);
+	i = 0;
+	while (envp[++i])
+		if (ft_strnstr(envp[i], env_var, len))
+		{
+			free(envp[i]);
+			if (!(envp[i] = ft_strjoin(env_var, value)))
+				ft_error(ALLOCATION_FAILED);
+			free((char	*)env_var);
+			break ;
+		}
+}
 
 char	*ft_get_env_value(char *envp[], char *var)
 {

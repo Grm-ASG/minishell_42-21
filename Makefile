@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/16 13:50:58 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/16 17:38:31 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,6 +106,9 @@ re_all: fclean fclean_libft all
 clean_all: clean clean_libft
 
 fclean_all: fclean fclean_libft
+
+test: all
+	./$(NAME)
 
 valgrind: all
 	valgrind --leak-check=full	\

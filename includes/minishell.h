@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 16:47:56 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 18:26:13 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@
 typedef struct	s_cd
 {
 	char		*last_path; //TODO command "cd -"
-	char		*tmp_dir;
+	char		*new_dir;
 }				t_cd;
 
 typedef struct	s_shell
@@ -119,6 +119,7 @@ void			ft_env(int fd, char *envp[]);
 void			ft_read_command(t_shell *s_shell);
 char			*ft_get_env_value(char *envp[], char *var);
 void			ft_execute_command(t_shell *s_shell);
-void			ft_cd(char *argv[], char *envp[]);
+void			ft_cd(t_shell *s_shell);
+void			ft_change_env(char *envp[], char *env_var, char *value);
 
 #endif

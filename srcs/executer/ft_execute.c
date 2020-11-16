@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 13:21:25 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 16:46:59 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 17:58:58 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_execute_command(t_shell *s_shell)
 	if (ft_strnstr(cmd, "pwd", 3))
 		ft_pwd(fd);
 	else if (ft_strnstr(cmd, "cd", 3))
-		ft_cd(s_shell->argv, s_shell->envp);
+		ft_cd(s_shell);
 	else
 	{
 		ft_putstr_fd(cmd, fd);
@@ -37,5 +37,5 @@ void	ft_execute_command(t_shell *s_shell)
 		free(s_shell->argv[i]);
 	free(s_shell->argv[i]);
 	free(s_shell->cmd_line);
-	ft_bzero(s_shell, sizeof(t_shell));
+	ft_bzero(&s_shell->fd, sizeof(t_shell) - 8);
 }

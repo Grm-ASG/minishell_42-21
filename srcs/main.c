@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 16:59:14 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 17:31:50 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			main(int argc, char *argv[], char *envp[])
 	ft_pre_req(argc, argv, envp, &s_shell);
 	while (1)
 	{
-		ft_type_promt(envp);
+		ft_type_promt(s_shell.envp);
 		ft_read_command(&s_shell);
 		ft_execute_command(&s_shell);
 	}
