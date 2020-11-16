@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 19:01:39 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 20:54:48 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@
 ** "readdir" has no include lib, need to read "man 2 readdir"
 */
 
+# include <stdarg.h>
 # include <X11/keysymdef.h>
 # include "libft.h"
 # include "get_next_line.h"
@@ -94,12 +95,6 @@
 /*
 ** Main structures
 */
-
-typedef struct	s_cd
-{
-	char		*new_dir;
-}				t_cd;
-
 typedef struct	s_shell
 {
 	char		**envp;
@@ -120,5 +115,7 @@ char			*ft_get_env_value(char *envp[], char *var);
 void			ft_execute_command(t_shell *s_shell);
 void			ft_cd(t_shell *s_shell);
 void			ft_change_env(char *envp[], char *env_var, char *value);
+void			ft_type_promt(char *envp[]);
+void			ft_free_all(int num_to_del, ...);
 
 #endif

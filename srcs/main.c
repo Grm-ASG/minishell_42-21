@@ -6,54 +6,18 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 20:03:20 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 20:36:30 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	ft_type_promt(char *envp[])
-{
-	const int	fd = 1;
-	char		*str_value;
-	int			len_home;
-	char		*find;
-	const char	*home = ft_get_env_value(envp, "HOME");
-
-	str_value = ft_get_env_value(envp, "USERNAME");
-	if (!str_value)
-		str_value = ft_strdup("user");
-	if (!str_value)
-		ft_error(ALLOCATION_FAILED);
-	ft_putstr_fd(GREEN, fd);
-	ft_putstr_fd(str_value, fd);
-	ft_putstr_fd("@MyOwnShell", fd);
-	ft_putstr_fd(DEFLT, fd);
-	ft_putstr_fd(":", fd);
-	free(str_value);
-	ft_putstr_fd(BLUE, fd);
-	str_value = ft_get_env_value(envp, "PWD");
-	if (home)
-	{
-		find = ft_strnstr(str_value, home, (len_home = ft_strlen(home)));
-		if (find)
-		{
-			str_value[0] = '~';
-			ft_memmove(&str_value[1], &str_value[len_home], ft_strlen(str_value) - len_home + 1);
-		}
-	}
-	ft_putstr_fd(str_value, fd);
-	ft_putstr_fd(DEFLT, fd);
-	free(str_value);
-	ft_putstr_fd("$ ", fd);
-}
 
 static void	ft_save_envp(char *envp[], t_shell *s_shell)
 {
 	int i;
 
 	i = 0;
-	while(envp[i])
+	while (envp[i])
 		i++;
 	if (!(s_shell->envp = (char **)malloc(sizeof(char *) * (i + 1))))
 		ft_error(ALLOCATION_FAILED);
@@ -63,7 +27,11 @@ static void	ft_save_envp(char *envp[], t_shell *s_shell)
 	{
 		if (!(s_shell->envp[i] = ft_strdup(envp[i])))
 		{
-
+			while (--i != 0)
+				free(s_shell->envp[i]);
+			free(s_shell->envp[i]);
+			free(s_shell->envp);
+			ft_error(ALLOCATION_FAILED);
 		}
 		++i;
 	}

@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/16 20:16:03 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/16 20:52:30 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,19 +18,21 @@ SRC				=	main.c
 
 SRC_ERR			=	ft_error.c
 
-SRC_BLTIN		=	ft_echo.c	\
-					ft_cd.c		\
-					ft_pwd.c	\
+SRC_BLTIN		=	ft_echo.c			\
+					ft_cd.c				\
+					ft_pwd.c			\
 					ft_env.c
 
-SRC_GNL			=	get_next_line.c	\
+SRC_GNL			=	get_next_line.c		\
 					get_next_line_utils.c
 
 SRC_PARCER		=	ft_read_command.c
 
 SRC_EXECUTE		=	ft_execute.c
 
-SRC_UTILS		=	ft_env_get.c
+SRC_UTILS		=	ft_env_get.c		\
+					ft_color_print.c	\
+					ft_end.c 
 
 #			Header files
 INCLUDES		=	minishell.h	\

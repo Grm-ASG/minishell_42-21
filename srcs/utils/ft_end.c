@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_read_command.c                                  :+:      :+:    :+:   */
+/*   ft_end.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 13:17:54 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 20:21:30 by imedgar          ###   ########.fr       */
+/*   Created: 2020/11/16 20:52:06 by imedgar           #+#    #+#             */
+/*   Updated: 2020/11/16 20:57:57 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_read_command(t_shell *s_shell)
+void		ft_free_all(int num_to_del, ...)
 {
-	int		ret;
+	va_list		factor;
 
-	ret = get_next_line(0, &s_shell->cmd_line);
-	if (ret < 0)
-		ft_error(GNL_ERR_RETURN);
-	s_shell->fd = 1;
+	va_start(factor, num_to_del);
+	while (num_to_del-- != 0)
+	{
+		free((void *)va_arg(factor, void *));
+	}
+	va_end(factor);
 }
