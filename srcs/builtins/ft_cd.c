@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:15:51 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 21:49:30 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/17 18:53:49 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ static void	ft_go_home(t_shell *s_shell, const char *init_dir)
 	ft_change_env(s_shell->envp, "OLDPWD", (char *)init_dir);
 	ft_free_all(1, &home_dir);
 	if (ret == -1)
-	{
-		ft_putendl_fd("-csh: cd: No such file or directory", 2);
+	{	
+		char *err = strerror(errno);
+		printf("%s\n", err);
+		ft_putendl_fd("-csh: cd: ", 2);
 	}
 }
 

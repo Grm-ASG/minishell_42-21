@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 20:54:48 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/17 19:30:13 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@
 # define PURPLE	"\033[35m"
 # define CYAN	"\033[36m"
 # define WHITE	"\033[37m"
+//DEBUG
+#include <stdio.h>
 
 /*
 ** Main structures
@@ -102,6 +104,19 @@ typedef struct	s_shell
 	char		*cmd_line;
 	char		**argv;
 }				t_shell;
+
+typedef struct	s_cmd
+{
+	char	*cmd;
+	char	**argv;
+	char	pipe;
+	char	less;
+	char	great;
+	char	greatgreat;
+	char	fd_stdout;
+	char	fd_stderr;
+	char	fd_strin;
+}				t_cmd;
 
 /*
 ** Function declaration
