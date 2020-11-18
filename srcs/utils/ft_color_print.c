@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 20:28:58 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/18 19:56:38 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/18 22:28:15 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		ft_type_promt(char *envp[])
 
 	str_value = ft_get_env_value(envp, "USERNAME");
 	if (!str_value)
-		str_value = ft_strdup("user");
+		str_value = ft_strdup("noname");
 	if (!str_value)
 		ft_error(ALLOCATION_FAILED);
 	ft_dprintf(fd, "%s%s@MyOwnShell%s:", GREEN, str_value, DEFLT);

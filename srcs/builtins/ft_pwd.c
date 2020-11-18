@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:16:40 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/18 22:49:32 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/18 23:01:49 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		ft_pwd(int fd_stdout, int fd_strerr)
 	if (!path_name)
 	{
 		if (!(err = strerror(errno)))
-			ft_dprintf(fd_strerr, "ERRNO return NULL in ft_pwd ¯\\_(ツ)_/¯\n");
+			ft_dprintf(fd_strerr, "ERRNO return NULL in ft_pwd ¯\\_(ツ)_/¯\n"); 
 		else
 			ft_dprintf(fd_strerr, "-csh: pwd: %s\n", err);
 	}
