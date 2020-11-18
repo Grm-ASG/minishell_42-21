@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:15:51 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/17 18:53:49 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/18 20:01:40 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	ft_go_home(t_shell *s_shell, const char *init_dir)
 {
 	char	*home_dir;
 	int		ret;
+	char 	*err;
 
 	home_dir = ft_get_env_value(s_shell->envp, "HOME");
 	if (!home_dir)
@@ -32,16 +33,19 @@ static void	ft_go_home(t_shell *s_shell, const char *init_dir)
 		ft_free_all(1, &init_dir);
 		return ;
 	}
-	ret = chdir(home_dir);
-	if (!(ft_strcmp(home_dir, init_dir)))
+	if ((ret = chdir(home_dir)) != -1)
+	{
+		if (!(ft_strcmp(home_dir, init_dir)))
 		ft_change_env(s_shell->envp, "PWD", home_dir);
-	ft_change_env(s_shell->envp, "OLDPWD", (char *)init_dir);
-	ft_free_all(1, &home_dir);
-	if (ret == -1)
-	{	
-		char *err = strerror(errno);
-		printf("%s\n", err);
-		ft_putendl_fd("-csh: cd: ", 2);
+		ft_change_env(s_shell->envp, "OLDPWD", (char *)init_dir);
+		ft_free_all(1, &home_dir);
+	}
+	else
+	{
+		if (!(err = strerror(errno)))
+			ft_dprintf(2, "ERRNO return NULL in ft_cd ¯\\_(ツ)_/¯\n");
+		else
+			ft_dprintf(2, "-csh: cd: %s: %s\n", home_dir, err);
 	}
 }
 
@@ -53,6 +57,7 @@ static void	ft_go_arg(t_shell *s_shell, const char *init_dir)
 	char			*tmp_argv;
 	const char		*home = ft_get_env_value(s_shell->envp, "HOME");
 	int				ret;
+	char			*err;
 
 	ret = 0;
 	tmp_argv = NULL;
@@ -75,9 +80,10 @@ static void	ft_go_arg(t_shell *s_shell, const char *init_dir)
 		ret = chdir(tmp_argv ? tmp_argv : s_shell->argv[1]);
 	if (ret == -1)
 	{
-		ft_putstr_fd("-csh: cd: ", 2);
-		ft_putstr_fd(tmp_argv ? tmp_argv : s_shell->argv[1], 2);
-		ft_putendl_fd(": No such file or directory", 2);
+		if (!(err = strerror(errno)))
+			ft_dprintf(2, "ERRNO return NULL in ft_cd ¯\\_(ツ)_/¯\n");
+		else
+			ft_dprintf(2, "-csh: cd: %s: %s\n", tmp_argv ? tmp_argv : s_shell->argv[1], err);
 	}
 	ft_free_all(3, &last_path, &tmp_argv, &home);
 }

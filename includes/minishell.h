@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/18 18:32:32 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/18 19:43:47 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@
 # include <X11/keysymdef.h>
 # include "libft.h"
 # include "get_next_line.h"
+# include "ft_printf.h"
 
 /*
 ** Define error codes
