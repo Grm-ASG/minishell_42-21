@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/16 20:52:30 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/18 21:29:12 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,6 @@ SRC_BLTIN		=	ft_echo.c			\
 					ft_pwd.c			\
 					ft_env.c
 
-SRC_GNL			=	get_next_line.c		\
-					get_next_line_utils.c
-
 SRC_PARCER		=	ft_read_command.c
 
 SRC_EXECUTE		=	ft_execute.c
@@ -34,33 +31,28 @@ SRC_UTILS		=	ft_env_get.c		\
 					ft_color_print.c	\
 					ft_end.c 
 
-#			Header files
-INCLUDES		=	minishell.h	\
-					libft.h		\
-					get_next_line.h
-
 #			Object and dependence files
-OBJ				=	$(addprefix $(DIR_SRC), $(SRC:.c=.o))				\
-					$(addprefix $(DIR_GNL), $(SRC_GNL:.c=.o))			\
-					$(addprefix $(DIR_ERROR), $(SRC_ERR:.c=.o))			\
-					$(addprefix $(DIR_BLTIN), $(SRC_BLTIN:.c=.o))		\
-					$(addprefix $(DIR_PARCER), $(SRC_PARCER:.c=.o))		\
-					$(addprefix $(DIR_EXECUTE), $(SRC_EXECUTE:.c=.o))	\
-					$(addprefix $(DIR_UTILS), $(SRC_UTILS:.c=.o))
+OBJ				=	$(addprefix $(DIR_OBJ), $(SRC:.c=.o))			\
+					$(addprefix $(DIR_OBJ), $(SRC_ERR:.c=.o))		\
+					$(addprefix $(DIR_OBJ), $(SRC_BLTIN:.c=.o))		\
+					$(addprefix $(DIR_OBJ), $(SRC_PARCER:.c=.o))	\
+					$(addprefix $(DIR_OBJ), $(SRC_EXECUTE:.c=.o))	\
+					$(addprefix $(DIR_OBJ), $(SRC_UTILS:.c=.o))
 
 DEP				=	$(OBJ:.o=.d)
 
 #			Main directories
+DIR_OBJ			=	./obj/
 DIR_SRC			=	./srcs/
 DIR_INC			=	./includes/
+DIR_INC_LIB		=	./libft/includes
 DIR_LIBFT		=	./libft/
-DIR_GNL			=	./get_next_line/
 DIR_ERROR		=	$(addprefix $(DIR_SRC), errors/)
 DIR_BLTIN		=	$(addprefix $(DIR_SRC), builtins/)
 DIR_PARCER		=	$(addprefix $(DIR_SRC), parcer/)
 DIR_EXECUTE		=	$(addprefix $(DIR_SRC), executer/)
 DIR_UTILS		=	$(addprefix $(DIR_SRC), utils/)
-
+	
 #			Main libraries
 LFT				=	$(DIR_LIBFT)libft.a
 
@@ -69,20 +61,42 @@ NORM			=	norminette
 
 #			Main variables
 CC				=	gcc
-CFLAGS			=	-g -I $(DIR_INC)		\
+CFLAGS			=	-g -I $(DIR_INC) -I $(DIR_INC_LIB)		\
 					-Wall -Wextra -Werror	\
 					-MMD #-fsanitize=address
 RM				=	rm -f
+COMPILE_C		=	$(CC) -c $(CFLAGS) -o $@ $<
 
 all: $(NAME)
 
 -include $(DEP)
 
-$(NAME): $(LFT) $(OBJ)
+$(NAME): $(DIR_OBJ) $(LFT) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -L$(DIR_LIBFT) -lft -o $@
 
+$(DIR_OBJ):
+	mkdir -p $(DIR_OBJ)
+
+$(DIR_OBJ)%.o: $(DIR_SRC)%.c
+	$(COMPILE_C)
+
+$(DIR_OBJ)%.o: $(DIR_ERROR)%.c
+	$(COMPILE_C)
+
+$(DIR_OBJ)%.o: $(DIR_BLTIN)%.c
+	$(COMPILE_C) 
+
+$(DIR_OBJ)%.o: $(DIR_PARCER)%.c
+	$(COMPILE_C) 
+
+$(DIR_OBJ)%.o: $(DIR_EXECUTE)%.c
+	$(COMPILE_C) 
+
+$(DIR_OBJ)%.o: $(DIR_UTILS)%.c
+	$(COMPILE_C) 
+
 clean:
-	$(RM) $(OBJ) $(DEP)
+	$(RM)r $(DIR_OBJ)
 
 fclean: clean
 	$(RM) $(NAME)
@@ -103,13 +117,13 @@ make_libft:
 norm:
 	$(NORM) $(DIR_LIBFT)*.c
 	$(NORM) $(OBJ:.o=.c)
-	$(NORM) $(addprefix $(DIR_INC), $(INCLUDES))
+	$(NORM) $(DIR_INC)
 
-re_all: fclean fclean_libft all
+re_all: fclean_libft fclean  all
 
-clean_all: clean clean_libft
+clean_all: clean_libft clean 
 
-fclean_all: fclean fclean_libft
+fclean_all: fclean_libft fclean 
 
 test: all
 	./$(NAME)
