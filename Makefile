@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/18 21:29:12 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/18 22:12:11 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,11 +42,11 @@ OBJ				=	$(addprefix $(DIR_OBJ), $(SRC:.c=.o))			\
 DEP				=	$(OBJ:.o=.d)
 
 #			Main directories
-DIR_OBJ			=	./obj/
-DIR_SRC			=	./srcs/
-DIR_INC			=	./includes/
-DIR_INC_LIB		=	./libft/includes
-DIR_LIBFT		=	./libft/
+DIR_OBJ			=	obj/
+DIR_SRC			=	srcs/
+DIR_INC			=	includes/
+DIR_LIBFT		=	libft/
+DIR_INC_LIB		=	$(DIR_LIBFT)$(DIR_INC)
 DIR_ERROR		=	$(addprefix $(DIR_SRC), errors/)
 DIR_BLTIN		=	$(addprefix $(DIR_SRC), builtins/)
 DIR_PARCER		=	$(addprefix $(DIR_SRC), parcer/)
@@ -61,11 +61,15 @@ NORM			=	norminette
 
 #			Main variables
 CC				=	gcc
-CFLAGS			=	-g -I $(DIR_INC) -I $(DIR_INC_LIB)		\
+CFLAGS			=	-I $(DIR_INC) -I $(DIR_INC_LIB)		\
 					-Wall -Wextra -Werror	\
 					-MMD #-fsanitize=address
 RM				=	rm -f
 COMPILE_C		=	$(CC) -c $(CFLAGS) -o $@ $<
+
+ifeq ($(DEBUG), YES)
+CFLAGS			+= -g
+endif
 
 all: $(NAME)
 
@@ -124,6 +128,9 @@ re_all: fclean_libft fclean  all
 clean_all: clean_libft clean 
 
 fclean_all: fclean_libft fclean 
+
+debug:
+	$(MAKE) DEBUG=YES re --no-print-directory
 
 test: all
 	./$(NAME)
