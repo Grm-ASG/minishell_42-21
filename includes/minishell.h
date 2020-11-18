@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/17 19:30:13 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/18 18:32:32 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,20 @@
 # define PURPLE	"\033[35m"
 # define CYAN	"\033[36m"
 # define WHITE	"\033[37m"
-//DEBUG
+
+//DEBUG DELETE
 #include <stdio.h>
+
+/*
+** For "fl_direction" flag
+*/
+# define LESS		1 << 0
+# define GREAT		1 << 1
+# define GREATGREAT	1 << 2
+# define FD_STDIN	1 << 3
+# define FD_STDOUT	1 << 4
+# define FD_STDERR	1 << 5
+# define PIPE		1 << 6
 
 /*
 ** Main structures
@@ -107,15 +119,10 @@ typedef struct	s_shell
 
 typedef struct	s_cmd
 {
-	char	*cmd;
-	char	**argv;
-	char	pipe;
-	char	less;
-	char	great;
-	char	greatgreat;
-	char	fd_stdout;
-	char	fd_stderr;
-	char	fd_strin;
+	char			*cmd;
+	char			**argv;
+	unsigned char	fl_redir;
+	struct s_cmd	*next;
 }				t_cmd;
 
 /*
