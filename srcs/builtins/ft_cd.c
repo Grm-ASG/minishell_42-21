@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:15:51 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/18 20:01:40 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/19 20:57:34 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static void	ft_go_home(t_shell *s_shell, const char *init_dir)
 
 static void	ft_go_arg(t_shell *s_shell, const char *init_dir)
 {
-	const char		fl_last_path = !ft_strcmp(s_shell->argv[1], "-");
+	const char		fl_last_path = !ft_strcmp(s_shell->argv[0], "-");
 	const char		*last_path = ft_get_env_value(s_shell->envp, "OLDPWD");
-	const char		tilda = s_shell->argv[1][0] == '~';
+	const char		tilda = s_shell->argv[0][0] == '~';
 	char			*tmp_argv;
 	const char		*home = ft_get_env_value(s_shell->envp, "HOME");
 	int				ret;
@@ -62,7 +62,7 @@ static void	ft_go_arg(t_shell *s_shell, const char *init_dir)
 	ret = 0;
 	tmp_argv = NULL;
 	if (tilda)
-		tmp_argv = ft_strjoin(home, &s_shell->argv[1][1]);
+		tmp_argv = ft_strjoin(home, &s_shell->argv[0][1]);
 	if (fl_last_path)
 	{
 		if (!last_path)
@@ -77,13 +77,13 @@ static void	ft_go_arg(t_shell *s_shell, const char *init_dir)
 		}
 	}
 	else
-		ret = chdir(tmp_argv ? tmp_argv : s_shell->argv[1]);
+		ret = chdir(tmp_argv ? tmp_argv : s_shell->argv[0]);
 	if (ret == -1)
 	{
 		if (!(err = strerror(errno)))
 			ft_dprintf(2, "ERRNO return NULL in ft_cd ¯\\_(ツ)_/¯\n");
 		else
-			ft_dprintf(2, "-csh: cd: %s: %s\n", tmp_argv ? tmp_argv : s_shell->argv[1], err);
+			ft_dprintf(2, "-csh: cd: %s: %s\n", tmp_argv ? tmp_argv : s_shell->argv[0], err);
 	}
 	ft_free_all(3, &last_path, &tmp_argv, &home);
 }
@@ -95,9 +95,9 @@ void		ft_cd(t_shell *s_shell)
 
 	if (!init_dir)
 		ft_error(ALLOCATION_FAILED);
-	if (!s_shell->argv[1])
+	if (!s_shell->argv[0])
 		ft_go_home(s_shell, init_dir);
-	else if (s_shell->argv[2])
+	else if (s_shell->argv[1])
 		ft_putendl_fd("-csh: cd: too many arguments", 2);
 	else
 		ft_go_arg(s_shell, init_dir);

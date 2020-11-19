@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 13:21:25 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/19 16:55:44 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/19 21:06:57 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ char	*ft_get_cmd(char **cmd)
 	int			i;
 	
 	i ^= i;
-	while (!ft_isspace((*cmd)[i]))
+	while (!ft_isspace((*cmd)[i]) && (*cmd)[i])
 		++i;
-	(*cmd)[i] = '\0';
-	*cmd = &(*cmd)[i + 1];
+	if ((*cmd)[i])
+			(*cmd)[i++] = '\0';
+	*cmd = &(*cmd)[i];
 	return ((char *)tmp);
 }
 
@@ -34,7 +35,6 @@ void	ft_execute_command(t_shell *s_shell)
 
 	if (cmd[0] == '\0')
 		return ;
-	i = -1;
 	cmd_to_exec = ft_get_cmd((char **)&cmd);
 	if (!(s_shell->argv = ft_split(cmd, ' ')))
 		ft_error(ALLOCATION_FAILED);
@@ -44,6 +44,7 @@ void	ft_execute_command(t_shell *s_shell)
 		ft_cd(s_shell);
 	else
 	{
+		i = -1;
 		ft_dprintf(fd, "cmd = %s: \n", cmd_to_exec);
 		while (s_shell->argv[++i])
 		{
