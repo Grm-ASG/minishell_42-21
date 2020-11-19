@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/18 20:57:32 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/19 21:17:00 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ int			main(int argc, char *argv[], char *envp[])
 		ft_read_command(&s_shell);
 		ft_execute_command(&s_shell);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

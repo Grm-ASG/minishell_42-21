@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/19 13:38:30 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/20 00:00:43 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,21 +110,38 @@
 /*
 ** Main structures
 */
-typedef struct	s_shell
-{
-	char		**envp;
-	int			fd;
-	char		*cmd_line;
-	char		**argv;
-}				t_shell;
 
 typedef struct	s_cmd
 {
 	char			*cmd;
 	char			**argv;
 	unsigned char	fl_redir;
+	int				fd_stderr;
+	int				fd_stdout;
+	int				fd_stdin;
 	struct s_cmd	*next;
 }				t_cmd;
+
+typedef struct	s_cd
+{
+	char		*new_dir;
+	char		*init_dir;
+	char		*home_dir;
+	char		*last_path;
+	char		*tmp_argv;
+	char		ret;
+}				t_cd;
+
+typedef struct	s_shell
+{
+	char		**envp;
+	int			fd;
+	char		*cmd_line;
+	char		**argv;
+	char		*errno_str;
+	t_cd		s_cd;
+	t_cmd		s_cmd;
+}				t_shell;
 
 /*
 ** Function declaration

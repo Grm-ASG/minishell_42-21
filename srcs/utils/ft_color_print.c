@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 20:28:58 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/18 22:28:15 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/19 21:17:59 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ void		ft_type_promt(char *envp[])
 	if (home)
 		ft_tilda_change((char **)&home, &str_value);
 	ft_dprintf(fd, "%s%s%s$ ", BLUE, str_value, DEFLT);
-	free(str_value);
-	free((void *)home);
+	ft_free_all(2, &str_value, &home);
 }
