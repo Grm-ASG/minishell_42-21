@@ -6,30 +6,49 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 13:21:25 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 21:53:19 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/19 16:55:44 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char	*ft_get_cmd(char **cmd)
+{
+	const char	*tmp = *cmd;
+	int			i;
+	
+	i ^= i;
+	while (!ft_isspace((*cmd)[i]))
+		++i;
+	(*cmd)[i] = '\0';
+	*cmd = &(*cmd)[i + 1];
+	return ((char *)tmp);
+}
+
 void	ft_execute_command(t_shell *s_shell)
 {
 	char *const	cmd = s_shell->cmd_line;
 	int const	fd = s_shell->fd;
+	char		*cmd_to_exec;
 	int			i;
 
 	if (cmd[0] == '\0')
 		return ;
-	if (!(s_shell->argv = ft_split(s_shell->cmd_line, ' ')))
+	i = -1;
+	cmd_to_exec = ft_get_cmd((char **)&cmd);
+	if (!(s_shell->argv = ft_split(cmd, ' ')))
 		ft_error(ALLOCATION_FAILED);
-	if (ft_strnstr(cmd, "pwd", 3))
+	if (ft_strnstr(cmd_to_exec, "pwd", 3))
 		ft_pwd(fd);
-	else if (!ft_strcmp(s_shell->argv[0], "cd"))
+	else if (!ft_strcmp(cmd_to_exec, "cd"))
 		ft_cd(s_shell);
 	else
 	{
-		ft_putstr_fd(cmd, fd);
-		ft_putstr_fd("\n", fd);
+		ft_dprintf(fd, "cmd = %s: \n", cmd_to_exec);
+		while (s_shell->argv[++i])
+		{
+			ft_dprintf(fd, "%dst argv = %s\n", i, s_shell->argv[i]);
+		}
 	}
 	i = -1;
 	while (s_shell->argv[++i])
