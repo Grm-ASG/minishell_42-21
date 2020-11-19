@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:16:40 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/18 23:01:49 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/19 13:38:10 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 **			2) int fd_stderr = filedescriptor to write standart errors
 */
 
-void		ft_pwd(int fd_stdout, int fd_strerr)
+void		ft_pwd(int fd)
 {
 	const char	*path_name = getcwd(NULL, 0);
 	char		*err;
+	const int	fd_strerr = 2;
+	const int	fd_stdout = fd;
 
 	if (!path_name)
 	{
