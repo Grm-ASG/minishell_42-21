@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/20 15:23:15 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/20 20:51:41 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@
 /*
 ** Main structures
 */
-
 typedef struct	s_cmd
 {
 	char			*cmd;
@@ -137,7 +136,7 @@ typedef struct	s_shell
 {
 	char		**envp;
 	int			do_not_clear;
-	int			fl_work;	
+	int			fl_work;
 	int			exit_status;
 	int			fd;
 	char		*cmd_line;
@@ -151,7 +150,7 @@ typedef struct	s_shell
 ** Function declaration
 */
 void			ft_error(int err);
-void			ft_echo(char *str, int fd, char fl_n);
+void			ft_echo(char **argv);
 void			ft_pwd(int fd);
 void			ft_env(int fd, char *envp[]);
 void			ft_read_command(t_shell *s_shell);
@@ -160,6 +159,7 @@ void			ft_execute_command(t_shell *s_shell);
 void			ft_cd(t_shell *s_shell);
 void			ft_change_env(char *envp[], char *env_var, char *value);
 void			ft_type_promt(char *envp[]);
+void			ft_free_array(char ***array);
 void			ft_free_all(int num_to_del, ...);
 
 #endif

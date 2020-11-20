@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:15:51 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/20 14:21:52 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/20 20:50:25 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void		ft_go_last_path(t_shell *s_shell, int fd_stdout)
 
 static void	ft_go_arg(t_shell *s_shell, int fd_stderr, char **tmp_argv)
 {
-	if (s_shell->argv[1][0] == '~' && \
-		!((*tmp_argv) = ft_strjoin(s_shell->s_cd.home_dir, &s_shell->argv[1][1])))
+	if (s_shell->argv[1][0] == '~' && !((*tmp_argv) = \
+	ft_strjoin(s_shell->s_cd.home_dir, &s_shell->argv[1][1])))
 		ft_error(ALLOCATION_FAILED);
 	if (!ft_strcmp(s_shell->argv[1], "-"))
 		ft_go_last_path(s_shell, s_shell->s_cmd.fd_stdout);

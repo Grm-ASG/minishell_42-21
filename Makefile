@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/20 13:59:29 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/20 20:52:04 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,9 +118,7 @@ make_libft:
 	$(MAKE) -C $(DIR_LIBFT) --no-print-directory 
 
 norm:
-	$(NORM) $(DIR_LIBFT)*.c
-	$(NORM) $(OBJ:.o=.c)
-	$(NORM) $(DIR_INC)
+	$(NORM) . *.[ch] #doesnt work
 
 re_all: fclean_libft fclean  all
 

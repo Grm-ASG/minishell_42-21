@@ -6,17 +6,11 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:16:40 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/19 13:38:10 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/20 20:50:50 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-**			Our "pwd" takes 2 argument:
-**			1) int fd_stdout = filedescriptor to write standart output
-**			2) int fd_stderr = filedescriptor to write standart errors
-*/
 
 void		ft_pwd(int fd)
 {
@@ -28,7 +22,7 @@ void		ft_pwd(int fd)
 	if (!path_name)
 	{
 		if (!(err = strerror(errno)))
-			ft_dprintf(fd_strerr, "ERRNO return NULL in ft_pwd ¯\\_(ツ)_/¯\n"); 
+			ft_dprintf(fd_strerr, "ERRNO return NULL in ft_pwd ¯\\_(ツ)_/¯\n");
 		else
 			ft_dprintf(fd_strerr, "-csh: pwd: %s\n", err);
 	}
