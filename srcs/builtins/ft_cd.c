@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:15:51 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/20 00:04:11 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/20 14:21:52 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 **	need to improve this!
 */
 //Bad comment for norminette error and check errno value
+//HOME == NULL need to handle
 
 static void	ft_go_home(t_shell *s_shell, int fd_err)
 {
@@ -44,7 +45,7 @@ void		ft_go_last_path(t_shell *s_shell, int fd_stdout)
 {
 	s_shell->s_cd.last_path = ft_get_env_value(s_shell->envp, "OLDPWD");
 	if (!s_shell->s_cd.last_path)
-		ft_dprintf(s_shell->s_cmd.fd_stderr, "-csh: cd: OLDPWD not set");
+		ft_dprintf(s_shell->s_cmd.fd_stderr, "-csh: cd: OLDPWD not set\n");
 	else
 	{
 		s_shell->s_cd.ret = chdir(s_shell->s_cd.last_path);
@@ -65,16 +66,16 @@ void		ft_go_last_path(t_shell *s_shell, int fd_stdout)
 	}
 }
 
-static void	ft_go_arg(t_shell *s_shell, int fd_stderr, char *tmp_argv)
+static void	ft_go_arg(t_shell *s_shell, int fd_stderr, char **tmp_argv)
 {
 	if (s_shell->argv[1][0] == '~' && \
-		!(tmp_argv = ft_strjoin(s_shell->s_cd.home_dir, &s_shell->argv[1][1])))
+		!((*tmp_argv) = ft_strjoin(s_shell->s_cd.home_dir, &s_shell->argv[1][1])))
 		ft_error(ALLOCATION_FAILED);
 	if (!ft_strcmp(s_shell->argv[1], "-"))
 		ft_go_last_path(s_shell, s_shell->s_cmd.fd_stdout);
 	else
 	{
-		s_shell->s_cd.ret = chdir(tmp_argv ? tmp_argv : s_shell->argv[1]);
+		s_shell->s_cd.ret = chdir((*tmp_argv) ? (*tmp_argv) : s_shell->argv[1]);
 		if (s_shell->s_cd.ret == -1)
 		{
 			if (!(s_shell->errno_str = strerror(errno)))
@@ -85,7 +86,7 @@ static void	ft_go_arg(t_shell *s_shell, int fd_stderr, char *tmp_argv)
 				ft_dprintf(fd_stderr, "-csh: cd: ");
 				if (!ft_strcmp(s_shell->argv[1], "~") || \
 					s_shell->argv[1][1] == '/')
-					ft_dprintf(fd_stderr, "%s", tmp_argv);
+					ft_dprintf(fd_stderr, "%s", (*tmp_argv));
 				else
 					ft_dprintf(fd_stderr, "%s", s_shell->argv[1]);
 				ft_dprintf(fd_stderr, ": %s\n", s_shell->errno_str);
@@ -96,7 +97,9 @@ static void	ft_go_arg(t_shell *s_shell, int fd_stderr, char *tmp_argv)
 
 void		ft_cd(t_shell *s_shell)
 {
-	s_shell->s_cd.home_dir = ft_get_env_value(s_shell->envp, "HOME");
+	if (!(s_shell->s_cd.home_dir = ft_get_env_value(s_shell->envp, "HOME")))
+		if (!(s_shell->s_cd.home_dir = ft_strdup(s_shell->s_cd.home_dir_init)))
+			ft_error(ALLOCATION_FAILED);
 	if (!(s_shell->s_cd.init_dir = getcwd(NULL, 0)))
 		ft_error(ALLOCATION_FAILED);
 	if (s_shell->argv[1] == NULL)
@@ -104,7 +107,7 @@ void		ft_cd(t_shell *s_shell)
 	else if (s_shell->argv[2] != NULL)
 		ft_putendl_fd("-csh: cd: too many arguments", s_shell->s_cmd.fd_stderr);
 	else
-		ft_go_arg(s_shell, s_shell->s_cmd.fd_stderr, s_shell->s_cd.tmp_argv);
+		ft_go_arg(s_shell, s_shell->s_cmd.fd_stderr, &s_shell->s_cd.tmp_argv);
 	if (!(s_shell->s_cd.new_dir = (char *)getcwd(NULL, 0)))
 		ft_error(ALLOCATION_FAILED);
 	if (ft_strcmp(s_shell->s_cd.new_dir, s_shell->s_cd.init_dir))

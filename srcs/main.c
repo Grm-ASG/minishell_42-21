@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/19 21:17:00 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/20 15:24:30 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ static void	ft_pre_req(int argc, char *argv[], \
 	(void)argv;
 	ft_bzero(s_shell, sizeof(t_shell));
 	ft_save_envp(envp, s_shell);
+	s_shell->do_not_clear = sizeof(s_shell->do_not_clear) + sizeof(s_shell->fl_work) + \
+							sizeof(s_shell->exit_status) + sizeof(s_shell->envp) + \
+							sizeof(s_shell->s_cd.home_dir_init);
+	s_shell->s_cd.home_dir_init = ft_get_env_value(s_shell->envp, "HOME");
+	
 }
 
 int			main(int argc, char *argv[], char *envp[])
@@ -52,11 +57,12 @@ int			main(int argc, char *argv[], char *envp[])
 	t_shell		s_shell;
 
 	ft_pre_req(argc, argv, envp, &s_shell);
-	while (1)
+	while (!s_shell.fl_work)
 	{
 		ft_type_promt(s_shell.envp);
 		ft_read_command(&s_shell);
 		ft_execute_command(&s_shell);
+		ft_bzero(&s_shell.fd, sizeof(t_shell) - s_shell.do_not_clear);
 	}
-	return (EXIT_SUCCESS);
+	return (s_shell.exit_status);
 }

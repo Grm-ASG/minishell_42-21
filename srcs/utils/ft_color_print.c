@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 20:28:58 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/19 21:17:59 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/20 10:56:45 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ void		ft_tilda_change(char **home, char **str_value)
 
 void		ft_type_promt(char *envp[])
 {
-	const int	fd = 1;
-	char		*str_value;
-	const char	*home = ft_get_env_value(envp, "HOME");
+	const int	fd_stdout = 1;
+	const char	*username = ft_get_env_value(envp, "USER");;
+	const char	*pwd_val = getcwd(NULL, 0);
+	const char	*home_dir = ft_get_env_value(envp, "HOME");
 
-	str_value = ft_get_env_value(envp, "USERNAME");
-	if (!str_value)
-		str_value = ft_strdup("noname");
-	if (!str_value)
+	if (!username && !(username = ft_strdup("noname")))
 		ft_error(ALLOCATION_FAILED);
-	ft_dprintf(fd, "%s%s@MyOwnShell%s:", GREEN, str_value, DEFLT);
-	free(str_value);
-	str_value = ft_get_env_value(envp, "PWD");
-	if (home)
-		ft_tilda_change((char **)&home, &str_value);
-	ft_dprintf(fd, "%s%s%s$ ", BLUE, str_value, DEFLT);
-	ft_free_all(2, &str_value, &home);
+	ft_dprintf(fd_stdout, "%s%s@MyOwnShell%s:", GREEN, username, DEFLT);
+	if (pwd_val && home_dir)
+	{
+		ft_tilda_change((char **)&home_dir, (char **)&pwd_val);
+		ft_dprintf(fd_stdout, "%s%s%s$ ", BLUE, pwd_val, DEFLT);
+	}
+	else
+		ft_dprintf(fd_stdout, "%s.%s$ ", BLUE, DEFLT);
+	ft_free_all(3, &username, &home_dir, &pwd_val);
 }

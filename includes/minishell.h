@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/20 00:00:43 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/20 15:23:15 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@
 # include <X11/keysymdef.h>
 # include "libft.h"
 # include "get_next_line.h"
-# include "ft_printf.h"
+# include "ft_dprintf.h"
 
 /*
 ** Define error codes
@@ -115,7 +115,7 @@ typedef struct	s_cmd
 {
 	char			*cmd;
 	char			**argv;
-	unsigned char	fl_redir;
+	int				fl_redir;
 	int				fd_stderr;
 	int				fd_stdout;
 	int				fd_stdin;
@@ -126,21 +126,25 @@ typedef struct	s_cd
 {
 	char		*new_dir;
 	char		*init_dir;
-	char		*home_dir;
 	char		*last_path;
 	char		*tmp_argv;
-	char		ret;
+	long		ret;
+	char		*home_dir;
+	char		*home_dir_init;
 }				t_cd;
 
 typedef struct	s_shell
 {
 	char		**envp;
+	int			do_not_clear;
+	int			fl_work;	
+	int			exit_status;
 	int			fd;
 	char		*cmd_line;
 	char		**argv;
 	char		*errno_str;
-	t_cd		s_cd;
 	t_cmd		s_cmd;
+	t_cd		s_cd;
 }				t_shell;
 
 /*
