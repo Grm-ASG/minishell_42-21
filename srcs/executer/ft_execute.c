@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 13:21:25 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/20 21:43:32 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/24 01:08:50 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,22 @@ void	ft_exec_builtin(t_shell *s_shell)
 		ft_clear_exit(s_shell);
 }
 
+void	ft_find_cmd_path(t_shell *s_shell)
+{
+	char	*tmp;
+
+	tmp = s_shell->argv[0];
+	if (!(s_shell->argv[0] = ft_strjoin("/usr/bin/", s_shell->argv[0])))
+		ft_error(ALLOCATION_FAILED);
+	free(tmp);
+}
+
 void	ft_exec_extern(t_shell *s_shell)
 {
 	int const	fd = s_shell->fd;
 	int			i;
 
+	ft_find_cmd_path(s_shell);
 	if (ft_call_execve(s_shell->argv[0], s_shell))
 	{
 		if (!(s_shell->errno_str = strerror(errno)))
@@ -100,6 +111,7 @@ void	ft_exec_extern(t_shell *s_shell)
 			ft_dprintf(2, "-csh: %s: %s\n", s_shell->argv[0], \
 						s_shell->errno_str);
 	}
+	//DELETE Debug printf
 	if (1)
 	{
 		i = 0;
