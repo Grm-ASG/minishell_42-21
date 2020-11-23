@@ -6,21 +6,11 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 13:21:25 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/24 01:08:50 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/24 01:36:00 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_free_array(char ***array)
-{
-	int i;
-
-	i = 0;
-	while ((*array)[i])
-		ft_free_all(1, &(*array)[i++]);
-	ft_free_all(1, &(*array));
-}
 
 int		ft_call_execve(char *cmd, t_shell *s_shell)
 {

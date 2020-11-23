@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/20 20:51:41 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/24 01:36:32 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,6 @@ void			ft_change_env(char *envp[], char *env_var, char *value);
 void			ft_type_promt(char *envp[]);
 void			ft_free_array(char ***array);
 void			ft_free_all(int num_to_del, ...);
+void			ft_free_array(char ***array);
 
 #endif
