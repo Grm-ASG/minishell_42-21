@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 09:39:34 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/20 21:22:06 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/24 00:48:32 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	ft_echo(char **argv)
 	if (fl_n)
 		++i;
 	while (argv[++i])
-	{
 		if (!strcmp(argv[i], "$?"))
 			ft_dprintf(1, "%d", errno);
 		else
@@ -30,7 +29,6 @@ void	ft_echo(char **argv)
 			if (argv[i + 1])
 				ft_putchar_fd(' ', 1);
 		}
-	}
 	if (!fl_n)
 		ft_putstr_fd("\n", 1);
 }

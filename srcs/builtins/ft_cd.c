@@ -6,16 +6,12 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 10:15:51 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/20 20:50:25 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/24 00:48:06 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**	HOWTO check errno value and print error depending on errno
-**	need to improve this!
-*/
 //Bad comment for norminette error and check errno value
 //HOME == NULL need to handle
 
