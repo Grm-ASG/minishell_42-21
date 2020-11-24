@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/20 20:52:04 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/24 21:48:14 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC_PARCER		=	ft_read_command.c
 SRC_EXECUTE		=	ft_execute.c
 
 SRC_UTILS		=	ft_env_get.c		\
-					ft_color_print.c
+					ft_color_print.c	\
+					ft_utils.c
 
 #			Object and dependence files
 OBJ				=	$(addprefix $(DIR_OBJ), $(SRC:.c=.o))			\
