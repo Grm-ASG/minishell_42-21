@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/24 21:48:14 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/29 15:21:58 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +42,10 @@ OBJ				=	$(addprefix $(DIR_OBJ), $(SRC:.c=.o))			\
 DEP				=	$(OBJ:.o=.d)
 
 #			Main directories
-DIR_OBJ			=	obj/
-DIR_SRC			=	srcs/
-DIR_INC			=	includes/
-DIR_LIBFT		=	libft/
+DIR_OBJ			=	./obj/
+DIR_SRC			=	./srcs/
+DIR_INC			=	./includes/
+DIR_LIBFT		=	./libft/
 DIR_INC_LIB		=	$(DIR_LIBFT)$(DIR_INC)
 DIR_ERROR		=	$(addprefix $(DIR_SRC), errors/)
 DIR_BLTIN		=	$(addprefix $(DIR_SRC), builtins/)
@@ -71,6 +71,13 @@ ifeq ($(DEBUG), YES)
 CFLAGS			+= -g
 endif
 
+#			Color
+RED		=	\033[31m
+GREEN	=	\033[32m
+DEF		=	\033[0m
+SIDE	=	\/
+ECHO	=	echo -e 
+
 all: $(NAME)
 
 -include $(DEP)
@@ -79,7 +86,7 @@ $(NAME): $(DIR_OBJ) $(LFT) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -L$(DIR_LIBFT) -lft -o $@
 
 $(DIR_OBJ):
-	mkdir -p $(DIR_OBJ)
+	mkdir -p $@
 
 $(DIR_OBJ)%.o: $(DIR_SRC)%.c
 	$(COMPILE_C)
@@ -116,7 +123,7 @@ fclean_libft:
 $(LFT): make_libft
 
 make_libft:
-	$(MAKE) -C $(DIR_LIBFT) --no-print-directory 
+	$(MAKE) -C $(DIR_LIBFT)
 
 norm:
 	$(NORM) . *.[ch] #doesnt work
