@@ -95,7 +95,7 @@ void	ft_exec_extern(t_shell *s_shell)
 	if (ft_call_execve(s_shell->argv[0], s_shell))
 	{
 		if (!(s_shell->errno_str = strerror(errno)))
-			ft_dprintf(2, "ERRNO return NULL in %s: ¯\\_(ツ)_/¯\n", \
+			ft_dprintf(2, "strerror return NULL in %s: ¯\\_(ツ)_/¯\n", \
 						s_shell->argv[0]);
 		else
 			ft_dprintf(2, "-csh: %s: %s\n", s_shell->argv[0], \

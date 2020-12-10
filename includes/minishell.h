@@ -68,7 +68,7 @@
 */
 
 # include <stdarg.h>
-# include <X11/keysymdef.h>
+//# include <X11/keysymdef.h>
 # include "libft.h"
 # include "get_next_line.h"
 # include "ft_dprintf.h"
