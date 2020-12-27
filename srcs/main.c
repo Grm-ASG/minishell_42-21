@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parser/parser.h"
 
 static void	ft_save_envp(char *envp[], t_shell *s_shell)
 {
@@ -56,11 +57,30 @@ int			main(int argc, char *argv[], char *envp[])
 {
 	t_shell		s_shell;
 
+
+	//заготовка для моей структуры
+	t_cmd	cmd;
+	cmd.exit = 0;
+	cmd.ret = 0;
+	//
+
 	ft_pre_req(argc, argv, envp, &s_shell);
 	while (!s_shell.fl_work)
 	{
 		ft_type_promt(s_shell.envp);
-		ft_read_command(&s_shell);
+		
+
+		//по задумке тут должен был быть цикл, но т.к. вложен - то пусть ветвление будет
+		if (cmd.exit == 0)
+		{
+			//попробовал начать обрабатывать сигналы
+			sig_start();
+			//используя твою структуру должно быть так - ft_read_command(&s_shell); но я делал через свою
+			ft_read_command(&cmd); 
+		}
+		//извини, но дальше ничего не менял
+
+		
 		ft_execute_command(&s_shell);
 		ft_bzero(&s_shell.fd, sizeof(t_shell) - s_shell.do_not_clear);
 	}

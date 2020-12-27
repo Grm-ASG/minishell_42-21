@@ -28,7 +28,7 @@ void	sig_res(void)
 		ft_putstr_fd("\b\b  \b\b", STDERR);
 }
 
-void	sig_init(void)
+void	sig_start(void)
 {
 	my_signal.sigcode = 0;
 	my_signal.sigres = 0;

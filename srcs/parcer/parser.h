@@ -70,9 +70,9 @@ int				is_types(t_sign *sign, char *types);
 int				has_type(t_sign *sign, int type);
 int				has_pipe(t_sign *sign);
 t_sign			*next_type(t_sign *sign, int type, int skip);
-void			sig_int(int code);
-void			sig_quit(int code);
-void			sig_init(void);
+void			sig_code(int code);
+void			sig_res(int code);
+void			sig_start(void);
 
 extern t_signal		my_signal;
 #endif
