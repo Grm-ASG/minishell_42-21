@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:31:28 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/29 15:21:58 by imedgar          ###   ########.fr        #
+#    Updated: 2020/12/28 11:31:25 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ SRC_BLTIN		=	ft_echo.c			\
 					ft_pwd.c			\
 					ft_env.c
 
-SRC_PARCER		=	ft_read_command.c
+SRC_PARCER		=	ft_read_command.c	\
+					signal.c			\
+					signs.c
 
 SRC_EXECUTE		=	ft_execute.c
 

@@ -6,12 +6,14 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:25:46 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/24 01:36:32 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/12/28 11:00:41 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+#include "parser.h"
 
 /*
 ** "malloc"/"free"/"exit"
@@ -98,7 +100,7 @@
 
 /*
 ** For "fl_direction" flag
-*/
+
 # define LESS		1 << 0
 # define GREAT		1 << 1
 # define GREATGREAT	1 << 2
@@ -106,20 +108,10 @@
 # define FD_STDOUT	1 << 4
 # define FD_STDERR	1 << 5
 # define PIPE		1 << 6
-
+*/
 /*
 ** Main structures
 */
-typedef struct	s_cmd
-{
-	char			*cmd;
-	char			**argv;
-	int				fl_redir;
-	int				fd_stderr;
-	int				fd_stdout;
-	int				fd_stdin;
-	struct s_cmd	*next;
-}				t_cmd;
 
 typedef struct	s_cd
 {

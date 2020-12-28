@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 13:17:54 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 20:21:30 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/12/28 13:05:58 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ char	*space_line(char *line)
 			new[j++] = line[i++];
 	}
 	new[j] = '\0';
-	ft_memdel(line);
+	free(line);
 	return (new);
 }
 
@@ -164,7 +164,7 @@ int		quote_check(t_cmd *cmd, char **line)
 	if (quotes(*line, 2147483647))
 	{
 		ft_putendl_fd("cmdshell: syntax error with open quotes", STDERR);
-		ft_memdel(*line);
+		free(*line);
 		cmd->res = 2;
 		cmd->start = NULL;
 		return (1);
@@ -172,23 +172,23 @@ int		quote_check(t_cmd *cmd, char **line)
 	return (0);
 }
 
-void	ft_read_command(t_cmd *cmd)
+void	ft_read_command(t_shell *s_shell)
 {
 	char	*line;
 	t_sign	*sign;
 
-	signal(SIGINT, &sig_int);
-	signal(SIGQUIT, &sig_quit);
-	if (get_next_line(0, &line) == -2 && (cmd->exit = 1))
+	//signal(SIGINT, &sig_int);
+	//signal(SIGQUIT, &sig_quit);
+	if (get_next_line(0, &line) == -2 && (s_shell->s_cmd.exit = 1))
 		ft_putendl_fd("exit", STDERR);
-	cmd->res = (my_signal.sigcode == 1) ? my_signal.status : cmd->res;
-	if (quote_check(cmd, &line))
+	s_shell->s_cmd.res = (my_signal.sigcode == 1) ? my_signal.status : s_shell->s_cmd.res;
+	if (quote_check(&s_shell->s_cmd, &line))
 		return ;
 	line = space_line(line);
-	cmd->start = get_signs(line);
-	ft_memdel(line);
-	get_args(cmd);
-	sign = cmd->start;
+	s_shell->s_cmd.start = get_signs(line);
+	free(line);
+	get_args(&s_shell->s_cmd);
+	sign = s_shell->s_cmd.start;
 	while (sign)
 	{
 		if (is_type(sign, ARG))

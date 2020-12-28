@@ -40,6 +40,10 @@ typedef struct	s_cmd
 	int				res;
 	int				exit;
 	int				no_exec;
+	int				fl_redir;
+	int				fd_stderr;
+	int				fd_stdout;
+	int				fd_stdin;
 }				t_cmd;
 
 typedef struct	s_signal
@@ -70,8 +74,8 @@ int				is_types(t_sign *sign, char *types);
 int				has_type(t_sign *sign, int type);
 int				has_pipe(t_sign *sign);
 t_sign			*next_type(t_sign *sign, int type, int skip);
-void			sig_code(int code);
-void			sig_res(int code);
+void			sig_code(void);
+void			sig_res(void);
 void			sig_start(void);
 
 extern t_signal		my_signal;

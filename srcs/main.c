@@ -6,12 +6,12 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 19:24:18 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/20 15:24:30 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/12/28 11:23:10 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser/parser.h"
+#include "parser.h"
 
 static void	ft_save_envp(char *envp[], t_shell *s_shell)
 {
@@ -61,14 +61,13 @@ int			main(int argc, char *argv[], char *envp[])
 	//заготовка для моей структуры
 	t_cmd	cmd;
 	cmd.exit = 0;
-	cmd.ret = 0;
+	cmd.res = 0;
 	//
 
 	ft_pre_req(argc, argv, envp, &s_shell);
 	while (!s_shell.fl_work)
 	{
 		ft_type_promt(s_shell.envp);
-		
 
 		//по задумке тут должен был быть цикл, но т.к. вложен - то пусть ветвление будет
 		if (cmd.exit == 0)
@@ -76,11 +75,11 @@ int			main(int argc, char *argv[], char *envp[])
 			//попробовал начать обрабатывать сигналы
 			sig_start();
 			//используя твою структуру должно быть так - ft_read_command(&s_shell); но я делал через свою
-			ft_read_command(&cmd); 
+			//ft_read_command(&cmd);
+			ft_read_command(&s_shell); 
 		}
 		//извини, но дальше ничего не менял
 
-		
 		ft_execute_command(&s_shell);
 		ft_bzero(&s_shell.fd, sizeof(t_shell) - s_shell.do_not_clear);
 	}
