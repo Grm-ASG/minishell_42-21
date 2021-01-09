@@ -37,6 +37,7 @@ typedef struct	s_sign
 typedef struct	s_cmd
 {
 	t_sign			*start;
+	int				end;
 	int				res;
 	int				exit;
 	int				no_exec;
@@ -54,7 +55,7 @@ typedef struct	s_signal
 	pid_t			pid;
 }				t_signal;
 
-t_signal		my_signal;
+int				ft_ignore_sep(char *line, int i);
 void			read_line(t_cmd *cmd);
 t_sign			*get_signs(char *line);
 void			get_args(t_cmd *cmd);
@@ -78,5 +79,5 @@ void			sig_code(void);
 void			sig_res(void);
 void			sig_start(void);
 
-extern t_signal		my_signal;
+extern t_signal		gs_signal;
 #endif

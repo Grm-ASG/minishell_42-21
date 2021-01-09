@@ -13,7 +13,6 @@
 #include "minishell.h"
 #include "parser.h"
 
-t_signal		my_signal;
 void	ft_skip_space(const char *str, int *i)
 {
 	while ((str[*i] == ' ' || str[*i] == '\t')
@@ -181,7 +180,7 @@ void	ft_read_command(t_shell *s_shell)
 	//signal(SIGQUIT, &sig_quit);
 	if (get_next_line(0, &line) == -2 && (s_shell->s_cmd.exit = 1))
 		ft_putendl_fd("exit", STDERR);
-	s_shell->s_cmd.res = (my_signal.sigcode == 1) ? my_signal.status : s_shell->s_cmd.res;
+	s_shell->s_cmd.res = (gs_signal.sigcode == 1) ? gs_signal.status : s_shell->s_cmd.res;
 	if (quote_check(&s_shell->s_cmd, &line))
 		return ;
 	line = space_line(line);

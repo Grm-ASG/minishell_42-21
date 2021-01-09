@@ -94,7 +94,7 @@ static void	ft_go_arg(t_shell *s_shell, int fd_stderr, char **tmp_argv)
 void		ft_cd(t_shell *s_shell)
 {
 	if (!(s_shell->s_cd.home_dir = ft_get_env_value(s_shell->envp, "HOME")))
-		if (!(s_shell->s_cd.home_dir = ft_strdup(s_shell->s_cd.home_dir_init)))
+		if (!(s_shell->s_cd.home_dir = ft_strdup(s_shell->home_dir_init)))
 			ft_error(ALLOCATION_FAILED);
 	if (!(s_shell->s_cd.init_dir = getcwd(NULL, 0)))
 		ft_error(ALLOCATION_FAILED);

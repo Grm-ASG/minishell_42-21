@@ -52,26 +52,24 @@ int		ft_call_execve(char *cmd, t_shell *s_shell)
 
 void	ft_clear_exit(t_shell *s_shell)
 {
-	s_shell->fl_work = 1;
+	s_shell->s_cmd.exit = 1;
 	if (s_shell->argv[1])
 		s_shell->exit_status = ft_atoi(s_shell->argv[1]);
 	else 	//TODO check argument of exit
 		s_shell->exit_status = 0;
 	get_next_line(0, NULL);
 	ft_free_array(&s_shell->envp);
-	ft_free_all(2, &s_shell->s_cd.home_dir_init, &s_shell->cmd_line);
+	free( s_shell->home_dir_init);
 }
 
 void	ft_exec_builtin(t_shell *s_shell)
 {
-	int const	fd = s_shell->fd;
-
 	if (!ft_strcmp(s_shell->argv[0], "echo"))
 		ft_echo(s_shell->argv);
 	else if (!ft_strcmp(s_shell->argv[0], "cd"))
 		ft_cd(s_shell);
 	else if (!ft_strcmp(s_shell->argv[0], "pwd"))
-		ft_pwd(fd);
+		ft_pwd(STDOUT);
 	else if (!ft_strcmp(s_shell->argv[0], "exit"))
 		ft_clear_exit(s_shell);
 }
@@ -88,7 +86,6 @@ void	ft_find_cmd_path(t_shell *s_shell)
 
 void	ft_exec_extern(t_shell *s_shell)
 {
-	int const	fd = s_shell->fd;
 	int			i;
 
 	ft_find_cmd_path(s_shell);
@@ -105,9 +102,9 @@ void	ft_exec_extern(t_shell *s_shell)
 	if (1)
 	{
 		i = 0;
-		ft_dprintf(fd, "\n!DEBUG!\ncmd = %s: \n", s_shell->argv[0]);
+		ft_dprintf(STDOUT, "\n!DEBUG!\ncmd = %s: \n", s_shell->argv[0]);
 		while (s_shell->argv[++i])
-			ft_dprintf(fd, "%dst argv = %s\n", i, s_shell->argv[i]);
+			ft_dprintf(STDOUT, "%dst argv = %s\n", i, s_shell->argv[i]);
 	}
 }
 
@@ -132,16 +129,22 @@ int		ft_check_cmd_builtin(char *cmd)
 	return (0);
 }
 
+void	ft_get_next_cmd(t_shell *s_shell)
+{
+	if (s_shell->s_cmd.start->next == NULL)
+		s_shell->s_cmd.end = 1;
+	//TODO
+}
+
 void	ft_execute_command(t_shell *s_shell)
 {
-	if (s_shell->cmd_line[0] == '\0')
-		return ;
-	if (!(s_shell->argv = ft_split(s_shell->cmd_line, ' ')))
-		ft_error(ALLOCATION_FAILED);
-	if (ft_check_cmd_builtin(s_shell->argv[0]))
-		ft_exec_builtin(s_shell);
-	else
-		ft_exec_extern(s_shell);
-	ft_free_array(&s_shell->argv);
-	ft_free_all(1, &s_shell->cmd_line);
+	while (!s_shell->s_cmd.end)
+	{
+		ft_get_next_cmd(s_shell);
+		if (ft_check_cmd_builtin(s_shell->argv[0]))
+			ft_exec_builtin(s_shell);
+		else
+			ft_exec_extern(s_shell);
+		ft_free_array(&s_shell->argv);
+	}
 }

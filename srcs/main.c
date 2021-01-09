@@ -13,75 +13,42 @@
 #include "minishell.h"
 #include "parser.h"
 
-static void	ft_save_envp(char *envp[], t_shell *s_shell)
+void		ft_start_end(t_shell *s_shell, char *envp[], int start)
 {
-	int i;
-
-	i = 0;
-	while (envp[i])
-		i++;
-	if (!(s_shell->envp = (char **)malloc(sizeof(char *) * (i + 1))))
-		ft_error(ALLOCATION_FAILED);
-	ft_bzero(s_shell->envp, sizeof(char *) * (i + 1));
-	i = 0;
-	while (envp[i])
+	if (start)
 	{
-		if (!(s_shell->envp[i] = ft_strdup(envp[i])))
-		{
-			while (--i != 0)
-				free(s_shell->envp[i]);
-			free(s_shell->envp[i]);
-			free(s_shell->envp);
-			ft_error(ALLOCATION_FAILED);
-		}
-		++i;
+		ft_dup_array(envp, &s_shell->envp);
+		s_shell->home_dir_init = ft_get_env_value(s_shell->envp, "HOME");
+		/*
+		s_shell->do_not_clear = sizeof(s_shell->do_not_clear) + \
+								sizeof(s_shell->exit_status) + sizeof(s_shell->envp) + \
+								sizeof(s_shell->s_cd.home_dir_init);
+		*/
 	}
-	s_shell->envp[i] = NULL;
-}
-
-static void	ft_pre_req(int argc, char *argv[], \
-						char *envp[], t_shell *s_shell)
-{
-	(void)argc;
-	(void)argv;
-	ft_bzero(s_shell, sizeof(t_shell));
-	ft_save_envp(envp, s_shell);
-	s_shell->do_not_clear = sizeof(s_shell->do_not_clear) + sizeof(s_shell->fl_work) + \
-							sizeof(s_shell->exit_status) + sizeof(s_shell->envp) + \
-							sizeof(s_shell->s_cd.home_dir_init);
-	s_shell->s_cd.home_dir_init = ft_get_env_value(s_shell->envp, "HOME");
-	
+	else
+	{
+		//TODO clean up all allocated memory
+		ft_free_array(&s_shell->envp);
+		free(s_shell->home_dir_init);
+	}
 }
 
 int			main(int argc, char *argv[], char *envp[])
 {
 	t_shell		s_shell;
 
-
-	//заготовка для моей структуры
-	t_cmd	cmd;
-	cmd.exit = 0;
-	cmd.res = 0;
-	//
-
-	ft_pre_req(argc, argv, envp, &s_shell);
-	while (!s_shell.fl_work)
+	(void)argc;
+	(void)argv;
+	ft_start_end(&s_shell, envp, 1);
+	while (!s_shell.s_cmd.exit)
 	{
+		ft_bzero(&s_shell, sizeof(t_shell) - 24);
+		ft_bzero(&gs_signal, sizeof(t_signal));
 		ft_type_promt(s_shell.envp);
-
-		//по задумке тут должен был быть цикл, но т.к. вложен - то пусть ветвление будет
-		if (cmd.exit == 0)
-		{
-			//попробовал начать обрабатывать сигналы
-			sig_start();
-			//используя твою структуру должно быть так - ft_read_command(&s_shell); но я делал через свою
-			//ft_read_command(&cmd);
-			ft_read_command(&s_shell); 
-		}
-		//извини, но дальше ничего не менял
-
-		ft_execute_command(&s_shell);
-		ft_bzero(&s_shell.fd, sizeof(t_shell) - s_shell.do_not_clear);
+		ft_read_command(&s_shell); 
+		if (!s_shell.s_cmd.res)
+			ft_execute_command(&s_shell);
 	}
+	ft_start_end(&s_shell, envp, 0);
 	return (s_shell.exit_status);
 }

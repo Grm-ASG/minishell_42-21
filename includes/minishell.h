@@ -69,6 +69,11 @@
 ** "readdir" has no include lib, need to read "man 2 readdir"
 */
 
+/*
+**	TRUE
+*/
+# include <stdbool.h>
+
 # include <stdarg.h>
 //# include <X11/keysymdef.h>
 # include "libft.h"
@@ -121,21 +126,17 @@ typedef struct	s_cd
 	char		*tmp_argv;
 	long		ret;
 	char		*home_dir;
-	char		*home_dir_init;
 }				t_cd;
 
 typedef struct	s_shell
 {
-	char		**envp;
-	int			do_not_clear;
-	int			fl_work;
-	int			exit_status;
-	int			fd;
-	char		*cmd_line;
 	char		**argv;
 	char		*errno_str;
 	t_cmd		s_cmd;
 	t_cd		s_cd;
+	char		*home_dir_init;
+	char		**envp;
+	long		exit_status;
 }				t_shell;
 
 /*
@@ -154,5 +155,6 @@ void			ft_type_promt(char *envp[]);
 void			ft_free_array(char ***array);
 void			ft_free_all(int num_to_del, ...);
 void			ft_free_array(char ***array);
+void			ft_dup_array(char *src[], char **dest[]);
 
 #endif
